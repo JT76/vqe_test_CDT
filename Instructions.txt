@@ -1,0 +1,64 @@
+
+Instructions for the test:
+
+In this exercise, you are asked to code an ansatz function for the Variational Quantum Eigensolver (VQE) and interpret the results. You are provided with everything else needed for the code to run. Please read the below very carefully. (1) Assumptions, (2) What is provided, (3) Exercise questions
+
+
+
+
+(1) Assumptions:
+
+*    Note that this is a simulation, meant to run on your CPU. To make the simulation efficient, we use the matrix formalism for the Hamiltonian and compute the expectation values directly (no need to worry about number of measurements, finite sampling noise or about breaking down the hamiltonian into a weighted sum of spin operators)
+
+*    We assume a linear lattice for the simulated QPU, and that no multi-entangling qubit gates can be applied. As such CNOT/CZ gates can only apply to two adjacent qubits:
+
+                Lattice:
+
+                q0         q1         q2         q3         etc...
+                Q----------Q----------Q----------Q----------Q 
+
+      On this lattice, the target qubit of CNOT/CZ gates will always be the one right after the control qubit. 
+
+
+
+
+(2) What is provided:
+
+*    Skeleton code for the VQE (make sure to read the docstrings and understand how the code works)
+
+*    Two different optimisers: RotoSolver and Gradient Descent (which can be passed as arguments of the vqe function)
+
+*    Hamiltonian matrices for H2, LiH and BeH2. These can be passed (strings) as arguments in the VQE function (.e.g. 'H2')
+
+*    A set of simulated quantum gates (Rx, Ry, Rz, CNOT, CZ). Note that each gate is a matrix (a numpy array) of dimension matching the size of your state vector. Consider the following code:
+    
+    qubit_index = 2     #indexation starts from 0
+    num_qubits = 4
+    theta = np.pi/2.
+    return Rz(qubit_index, num_qubits, theta)
+ 
+This will give you a matrix for (with x representing the tensor product): I x I x Rz(pi/2) x I
+
+
+
+
+
+(3) Exercise:
+
+	1 - Complete the VQE function (in the main_vqe.py file, vqe() function, look for #TODO) by specifying the number of parameters in your ansatz (bear in mind that this will change depending on the depth of your ansatz and the number of qubits in your system).
+
+	2 - Complete the ansatz() function (in the main_vqe.py file) by implementing a hardware efficient ansatz which can be repeated for an arbitrary number of layers. Read carefully the docstrings. The ansatz should shape itself to the number of qubits in the system and to the specified number of layers (note it is better to provide an ansatz that does not have this flexibility than none at all)
+
+        3 - Looking at H2 only for now: 
+               - Find the optimal depth and number of iterations for both Gradient Descent and RotoSolver- Comment (note that 'optimal' is a very subjective word, and therefore your comments and data that supports your answer is more important than the answer itself) 
+               - Compare runtime using Gradient Descent and RotoSolver (for one iteration or for the complete algorithm) - how do you explain the time difference? how does the accuracy compare? Any additional relevant comments on comparing the two optimisers will be treated as bonus
+
+(Note you can print the results for each iteration by changing the flag 'print_all' to True in the vqe(), you can plot the result for each iteration by changing the 'plot_vqe' flag)
+
+        4 - Looking at LiH, BeH2 (you can pick a single optimiser here if you prefer) - How does the optimal number of iterations, and depth scale as you increase the system size? 
+
+
+
+
+
+
