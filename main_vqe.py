@@ -145,7 +145,7 @@ def rotosolver(ansatz_func, hamiltonian, thetas, depth):
     return thetas
 
 def vqe(molecule, ansatz_func, num_iter, depth, optimiser_func, 
-        optimiser_args={'optimiser_args': None}, print_all=False, plot_vqe=False):
+        optimiser_args={}, print_all=False, plot_vqe=False):
     """Run the Variational Quantum Eigensolver (VQE) for a specified number of iteration given 
        an ansatz and an optimiser. 
 
